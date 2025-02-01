@@ -61,7 +61,7 @@ end_time = int((current_time - timedelta(days=end_time_days)).timestamp() * 1000
 
 for ticker in ticker_list:
     start_time_var = start_time 
-    filename = str(dt.datetime.fromtimestamp(start_time/1000.0)).replace(":",".") + "-" + str(dt.datetime.fromtimestamp(end_time/1000.0)).replace(":",".")+"_"+ticker+"_"+bar_size+"_ohlc.csv"    
+    filename = str(dt.datetime.fromtimestamp(start_time/1000.0)).replace(":",".")[:-6].replace(":",".").replace("-","") + "-" + str(dt.datetime.fromtimestamp(end_time/1000.0)).replace(":",".")[:-6].replace(":",".").replace("-","")+"_"+ticker+"_"+bar_size+"_ohlc.csv"    
     result = pd.DataFrame(columns=columns)
     result.set_index("timestamp", inplace=True)    
     while start_time_var > end_time:
