@@ -44,20 +44,22 @@ def fetch_okx_ohlc_data(api_key, secret_key, passphrase, instrument_id, bar, sta
 
 
 if __name__ == "__main__":
-
-    pk = open("pk_OKX_read.txt","r")
-    keys = pk.readlines()
-    APIKEY = keys[0].strip()
-    APISECRET = keys[1].strip()
-    PASS = keys[2].strip()
-    BASE_URL = "https://www.okx.com/api/v5/market/history-candles"   
-
-    current_time = datetime.now(timezone.utc)
-    start_time = int((current_time - timedelta(days=2)).timestamp() * 1000) 
-    end_time = int((current_time - timedelta(days=4)).timestamp() * 1000) 
-
-    result = fetch_okx_ohlc_data(APIKEY, APISECRET, PASS, "BTC-USDT", "1H", start_time, end_time)
-    filename = str(start_time) + "-" + str(end_time)+'_btc_1h_ohlct.csv'
-
-    result.to_csv(filename)
-    print(result.head(), result.tail())
+    try:
+        pk = open("pk_OKX_read.txt","r")
+        keys = pk.readlines()
+        APIKEY = keys[0].strip()
+        APISECRET = keys[1].strip()
+        PASS = keys[2].strip()
+        BASE_URL = "https://www.okx.com/api/v5/market/history-candles"   
+    
+        current_time = datetime.now(timezone.utc)
+        start_time = int((current_time - timedelta(days=2)).timestamp() * 1000) 
+        end_time = int((current_time - timedelta(days=4)).timestamp() * 1000) 
+    
+        result = fetch_okx_ohlc_data(APIKEY, APISECRET, PASS, "BTC-USDT", "1H", start_time, end_time)
+        filename = str(start_time) + "-" + str(end_time)+'_btc_1h_ohlct.csv'
+    
+        result.to_csv(filename)
+        print(result.head(), result.tail())
+    except Exception as e:
+        print(f"Error: {e}")
