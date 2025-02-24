@@ -74,4 +74,8 @@ def fetch_historical_data(ticker, bar_size, end_time):
 
     return data
 
-print(fetch_historical_data("BTCUSDT", "4h", 1690196141868))
+if __name__ == '__main__':
+    try:
+      print(fetch_historical_data("BTCUSDT", "4h", 1690196141868))
+    except Exception as e:
+        print(f"Error: {e}")
